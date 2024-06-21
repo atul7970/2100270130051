@@ -16,19 +16,14 @@ const numberTypes = {
 
 let windowState = [];
 
-const fetchProducts = async (company, category, minPrice, maxPrice) => {
-  const TEST_SERVER_URL = `http://20.244.56.144/products/companies/${company}/categories/${category}/products`;
+const fetchNumbers = async (numberid) => {
   try {
-    const response = await axios.get(TEST_SERVER_URL, {
-      params: { top: 10, minPrice, maxPrice },
+    const response = await axios.get(`${TEST_SERVER_URL}/${numberid}`, {
+      timeout: 500,
     });
-    return response.data.products;
+
+    return response.data.numbers;
   } catch (error) {
-    if (error.response && error.response.status === 404) {
-      console.error(`Products not found for company ${company}`);
-    } else {
-      console.error(`Error fetching products from ${company}:`, error.message);
-    }
     return [];
   }
 };
